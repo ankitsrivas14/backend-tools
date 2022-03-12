@@ -1,24 +1,28 @@
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const express = require('express')();
+const express = require('express');
+const app = express();
 
 const rootPath = require('./util/path');
+
+
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
-express.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(path.join(rootPath, 'public')));
 
 //Routes
-express.use('/admin', adminRoutes);
-express.use('/product', shopRoutes);
+app.use('/admin', adminRoutes);
+app.use('/product', shopRoutes);
 
 
 //Not found router
-express.use('/', (req, res, next) => {
+app.use('/', (req, res, next) => {
     res.status(404).sendFile(path.join(rootPath, 'views', '404.html'));
 })
 
 
-express.listen(3000);
+app.listen(3000);
