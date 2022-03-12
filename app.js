@@ -7,8 +7,8 @@ const shopRoutes = require('./routes/shop');
 express.use(bodyParser.urlencoded());
 
 //Routes
-express.use(adminRoutes);
-express.use(shopRoutes);
+express.use('/admin', adminRoutes);
+express.use('/product', shopRoutes);
 
 
 //Not found router
